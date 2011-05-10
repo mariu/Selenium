@@ -86,12 +86,16 @@ public class AutomationBase
         String expectedText = new Date().toString();
         selenium.type("//div[@id='contentArea']/div[@id='pagelet_composer']/div/div/div/form/div[2]/div[1]/div/div/div[1]/div/textarea", expectedText);
         selenium.click("link=Everyone");
+        selenium.click("link=Friends of Friends");
         selenium.click("//div/div/div/ul/li[2]/a/span");
         selenium.click("//input[@value='Share']");
-        //selenium.waitForFrameToLoad( "//*[@id=\"home_stream\"]", "30000" ); // not the case for using: waitforpagetoload, waitForFrameToLoad
-        Thread.sleep( 500 ); // find a better way for this, maybe use 'waitForTextPresent'
-        String actualText = selenium.getText( "//ul[@id='home_stream']/li[1]/div/div/div/div/h6/span");
+
+        Thread.sleep( 1000 ); // remember 'waitForTextPresent'
+        
+        selenium.isTextPresent(expectedText);
+        String actualText = selenium.getText( "//ul[@id='home_stream']/li/div/div/div/div/h6/span");
         assertEquals( "Status message not found: ", expectedText, actualText );
+        
         // TODO: move verification to a separate method
         
     }
